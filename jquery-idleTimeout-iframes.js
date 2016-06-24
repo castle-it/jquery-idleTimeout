@@ -51,6 +51,7 @@
       dialogTimeRemaining: 'Time remaining',
       dialogStayLoggedInButton: 'Stay Logged In',
       dialogLogOutNowButton: 'Log Out Now',
+      enableLogOutNowButton: true,
 
       // error message if https://github.com/marcuswestin/store.js not enabled
       errorAlertMessage: 'Please disable "Private Mode", or upgrade to a modern browser. Or perhaps a dependent file missing. Please see: https://github.com/marcuswestin/store.js',
@@ -167,8 +168,9 @@
 
       var dialogContent = "<div id='idletimer_warning_dialog'><p>" + currentConfig.dialogText + "</p><p style='display:inline'>" + currentConfig.dialogTimeRemaining + ": <div style='display:inline' id='countdownDisplay'></div></p></div>";
 
-      $(dialogContent).dialog({
-        buttons: [{
+      $(dialogContent).dialog({        
+         buttons: [{
+          id: "dlgBtnStayLoggedIn",
           text: currentConfig.dialogStayLoggedInButton,
           click: function () {
             destroyWarningDialog();
@@ -177,6 +179,7 @@
           }
         },
           {
+            id: "dlgBtnLogout",
             text: currentConfig.dialogLogOutNowButton,
             click: function () {
               logoutUser();
@@ -191,6 +194,11 @@
         }
       });
 
+      //Optionally remove logout button  		
+      if (currentConfig.enableLogOutNowButton === false) {          
+		  $("#dlgBtnLogout").remove();
+      }
+		
       countdownDisplay();
 
       document.title = currentConfig.dialogTitle;
