@@ -253,6 +253,7 @@
         if (secs < 10) { secs = '0' + secs; }
         $('#countdownDisplay').html(mins + ':' + secs);
         dialogDisplaySeconds -= 1;
+        if (dialogDisplaySeconds <= 0) dialogDisplaySeconds = 0; //get rid of NaN display
       }, 1000);
     };
 
